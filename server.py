@@ -2,8 +2,6 @@
 
 import SimpleHTTPServer
 import SocketServer
-import time
-from tracker import *
 
 # Port
 PORT = 8000
