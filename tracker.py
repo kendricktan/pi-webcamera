@@ -38,13 +38,16 @@ class Tracker:
 
         # Chuck to csv and save image
         if len(faces) != 0 or len(bodies) != 0:
-            with open('./log.csv', 'a') as f:
+            with open('./log.csv', 'r+') as f:
                 c_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())
                 filename = c_time + '.jpg'
                 cv2.imwrite(os.path.join('img', filename), frame)
-                writer= csv.writer(f, delimiter=';', lineterminator='\n') 
                 filename='<a href=/img/'+filename+'>'+filename+'</a>'
-                writer.writerow([filename])
+
+                content = f.read()
+
+                f.seek(0, 0)
+                f.write(filename.rstrip('\r\n') + '\n' + content)
 
         cv2.imwrite(os.path.join('img', 'frame.jpg'), frame)
 
@@ -55,4 +58,4 @@ tracker = Tracker()
 
 while True:
     tracker.pipe_frame()
-    time.sleep(5)
+    time.sleep(1)
