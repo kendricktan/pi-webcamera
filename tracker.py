@@ -35,8 +35,9 @@ class Tracker:
         for (x, y, w, h) in bodies:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0 ,0), 2)
 
+
         # Chuck to csv and save image
-        if faces is not None or bodies is not None:
+        if len(faces) != 0 or len(bodies) != 0:
             with open('./log.csv', 'a') as f:
                 c_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())
                 filename = c_time + '.jpg'
@@ -47,8 +48,11 @@ class Tracker:
 
         cv2.imwrite(os.path.join('img', 'frame.jpg'), frame)
 
+print('Starting person detector...')
+
+# Our tracker
 tracker = Tracker()
 
 while True:
     tracker.pipe_frame()
-    time.sleep(1)
+    time.sleep(5)
