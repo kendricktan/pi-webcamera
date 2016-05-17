@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<!-- jQuery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/normalize.css">
+	    <link rel="stylesheet" href="css/skeleton.css">
+	    <link rel="stylesheet" href="css/table.css">
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="nine columns" style="margin-top: 25px">
+					<canvas width="640" height="480" id="myCanvas"></canvas>
+				</div>
+				<div class="three columns">
+					<div id="myTable">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script>
+			window.setInterval(function(){
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+				var img = new Image();
+				img.src = 'img/frame.jpg'
+				img.onload = function(){
+					ctx.clearRect(0, 0, c.width, c.height);
+					ctx.drawImage(img, 0, 0);
+					console.log('get image!');
+				};
+
+			}, 100);
+
+			$.get('log.csv', function(data) {
+				var html = '<table class="table table-bordered">';
+				html += '<tr><td>Person detected at</tr></td>'
+				var rows = data.split("\n");
+				rows.forEach( function getvalues(ourrow) {
+					html += "<tr>";
+					var columns = ourrow.split(",");
+					if (columns[0] != ''){
+						html += "<td>" + columns[0] + "</td>";
+					}
+					html += "</tr>";
+				})
+				html += "</table>";
+				$('#myTable').append(html);
+			});
+		</script>
+	</body>
+</html>
