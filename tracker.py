@@ -9,7 +9,7 @@ from time import gmtime, strftime
 class Tracker(object):
     def __init__(self):
 	# Camera parameters
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(-1)
 	self.cap.set(3, 640) # width
 	self.cap.set(4, 480) # height
 
@@ -50,4 +50,17 @@ class Tracker(object):
                 f.write(filename.rstrip('\r\n') + '\n' + content)
 
         ret, jpeg = cv2.imencode('.jpg', frame)
+        self.frame = frame
         return jpeg.tobytes()
+
+'''
+t = Tracker()
+
+while True:
+    _ = t.get_frame()
+    cv2.imshow('img', t.frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+'''

@@ -1,9 +1,6 @@
 from flask import Flask, render_template, Response
 from tracker import Tracker 
 
-# Out tracker instance
-tracker = Tracker()
-
 # Flask
 app = Flask(__name__)
 
@@ -19,7 +16,7 @@ def gen(t):
 
 @app.route('/video')
 def video_feed():
-    return Response(gen(tracker), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Tracker()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
