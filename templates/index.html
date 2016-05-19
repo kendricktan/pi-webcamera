@@ -1,9 +1,8 @@
 <html>
 	<head>
-		<!-- Refreshes page every 10 seconds -->
-		<meta http-equiv="refresh" content="3">
 		<!-- jQuery -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="chrome-extension://kajfghlhfkcocafkcjlajldicbikpgnp/catcher.js"><!-- script injected by Request Maker --></script>
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/normalize.css">
 	    <link rel="stylesheet" href="css/skeleton.css">
@@ -14,7 +13,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="nine columns" style="margin-top: 25px">
-					<canvas width="640" height="480" id="myCanvas"></canvas>
+					<img id="bg" src="{{ url_for('video_feed') }}"/>
 				</div>
 				<div class="three columns">
 					<div id="myTable">
@@ -23,20 +22,7 @@
 			</div>
 
 		</div>
-
-		<script>
-			window.setInterval(function(){
-				var c = document.getElementById("myCanvas");
-				var ctx = c.getContext("2d");
-				var img = new Image();
-				img.src = 'img/frame.jpg'
-				img.onload = function(){
-					ctx.clearRect(0, 0, c.width, c.height);
-					ctx.drawImage(img, 0, 0);
-					console.log('get image!');
-				};
-
-			}, 100);
+			<script>
 
 			$.get('log.csv', function(data) {
 				var html = '<table class="table table-bordered">';

@@ -1,25 +1,25 @@
-#!/usr/bin/python
+from flask import Flask, render_template, Response
+from tracker import Tracker 
 
-import SimpleHTTPServer
-import SocketServer
+# Out tracker instance
+tracker = Tracker()
 
-# Port
-PORT = 8000
+# Flask
+app = Flask(__name__)
 
-# Set up our web handler
-Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-# What it accepts
-Handler.extensions_map.update({
-    '.webapp': 'application/x-web-app-manifest+json',
-    '.jpg': 'image/jpg',
-});
+def gen(t):
+    while True:
+        frame = t.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-# Setup server as 127.0.0.1
-httpd = SocketServer.TCPServer(("", PORT), Handler)
+@app.route('/video')
+def video_feed():
+    return Response(gen(tracker), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-print "Serving at port", PORT
-
-# Serves forever
-httpd.serve_forever()
-
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
