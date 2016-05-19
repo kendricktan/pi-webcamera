@@ -6,10 +6,12 @@ Web interface to monitor camera feed from Raspberry Pi
 # Getting-started
 
 1. Dependencies
+
 	sudo apt-get install python python-pip python-opencv
 	sudo pip install flask
 
 2. Extract and run webcam server
+
 	cd ~
 	git clone https://github.com:kendricktan/pi-webcamera.git
 	cd pi-webcamera
