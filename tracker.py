@@ -45,7 +45,7 @@ class Tracker(object):
                 cv2.imwrite(os.path.join('img', filename), frame)
 
 		# CSV
-                filename='<a href=img/'+filename+'>'+filename+'</a>'
+                filename='<a href="img/'+filename+'">'+filename+'</a>'
                 content = f.read()
                 f.seek(0, 0)
                 f.write(filename.rstrip('\r\n') + '\n' + content)

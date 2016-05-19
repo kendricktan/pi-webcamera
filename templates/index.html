@@ -29,6 +29,7 @@
 				var rows = data.split("\n");
 				rows.forEach( function getvalues(ourrow) {
 					html += "<tr>";
+					console.log(ourrow);
 					var columns = ourrow.split(",");
 					if (columns[0] != ''){
 						html += "<td>" + columns[0] + "</td>";
