@@ -11,7 +11,9 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<div class="nine columns" style="margin-top: 25px">
+				<div class="five columns" style="margin-top: 25px">
+					<div style="text-align:center"><strong>Webcam Web UI</strong></div>
+					<hr/>
 					<img id="bg" src=""/>
 				</div>
 				<div class="three columns">
@@ -22,7 +24,7 @@
 
 		</div>
 			<script>
-
+			// Grabs log.csv and chucks it onto a table
 			$.get("{{ url_for('static', filename='log.csv') }}", function(data) {
 				var html = '<table class="table table-bordered">';
 				html += '<tr><td>Person detected at</tr></td>'
@@ -38,7 +40,7 @@
 				})
 				html += "</table>";
 				$('#myTable').append(html);
-	
+
 				document.getElementById('bg').src='/video';
 			});
 

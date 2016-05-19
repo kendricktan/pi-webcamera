@@ -2,4 +2,6 @@
 Web interface to monitor camera feed from Raspberry Pi
 
 # Getting-started
-	./start.sh
+	python server.py
+
+Navigate to http://your-ip-address:5000
