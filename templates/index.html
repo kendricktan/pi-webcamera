@@ -2,18 +2,17 @@
 	<head>
 		<!-- jQuery -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script type="text/javascript" src="chrome-extension://kajfghlhfkcocafkcjlajldicbikpgnp/catcher.js"><!-- script injected by Request Maker --></script>
 		<!-- CSS -->
-		<link rel="stylesheet" href="css/normalize.css">
-	    <link rel="stylesheet" href="css/skeleton.css">
-	    <link rel="stylesheet" href="css/table.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+	    	<link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+	    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
 	</head>
 
 	<body>
 		<div class="container">
 			<div class="row">
 				<div class="nine columns" style="margin-top: 25px">
-					<img id="bg" src="{{ url_for('video_feed') }}"/>
+					<img id="bg" src=""/>
 				</div>
 				<div class="three columns">
 					<div id="myTable">
@@ -24,7 +23,7 @@
 		</div>
 			<script>
 
-			$.get('log.csv', function(data) {
+			$.get("{{ url_for('static', filename='log.csv') }}", function(data) {
 				var html = '<table class="table table-bordered">';
 				html += '<tr><td>Person detected at</tr></td>'
 				var rows = data.split("\n");
@@ -38,7 +37,11 @@
 				})
 				html += "</table>";
 				$('#myTable').append(html);
+	
+				document.getElementById('bg').src='/video';
 			});
+
+
 		</script>
 	</body>
 </html>

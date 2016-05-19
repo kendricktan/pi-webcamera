@@ -10,8 +10,8 @@ class Tracker(object):
     def __init__(self):
 	# Camera parameters
         self.cap = cv2.VideoCapture(-1)
-	self.cap.set(3, 640) # width
-	self.cap.set(4, 480) # height
+	self.cap.set(3, 320) # width
+	self.cap.set(4, 240) # height
 
 	# Pre-trained models
         self.face_cascade = cv2.CascadeClassifier('./xml/haarcascade_frontalface_default.xml')
@@ -38,29 +38,18 @@ class Tracker(object):
 
 	# Chuck to csv and save image if detects face
         if len(faces) != 0 or len(bodies) != 0:
-            with open('./log.csv', 'r+') as f:
+            with open('./static/log.csv', 'r+') as f:
+		# Save image
                 c_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())
                 filename = c_time + '.jpg'
                 cv2.imwrite(os.path.join('img', filename), frame)
-                filename='<a href=/img/'+filename+'>'+filename+'</a>'
 
+		# CSV
+                filename='<a href=img/'+filename+'>'+filename+'</a>'
                 content = f.read()
-
                 f.seek(0, 0)
                 f.write(filename.rstrip('\r\n') + '\n' + content)
 
+	# html compatible
         ret, jpeg = cv2.imencode('.jpg', frame)
-        self.frame = frame
-        return jpeg.tobytes()
-
-'''
-t = Tracker()
-
-while True:
-    _ = t.get_frame()
-    cv2.imshow('img', t.frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-cv2.destroyAllWindows()
-'''
+        return jpeg.tostring()
