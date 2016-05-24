@@ -37,7 +37,7 @@ class Tracker(object):
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0 ,0), 2)
 
 	# Chuck to csv and save image if detects face
-        if len(faces) != 0 or len(bodies) != 0:
+        if len(faces) is not 0 or len(bodies) is not 0:
             with open('./static/log.csv', 'r+') as f:
 		# Save image
                 c_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())

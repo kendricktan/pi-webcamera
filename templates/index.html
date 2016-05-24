@@ -26,28 +26,27 @@
 			</div>
 
 		</div>
-			<script>
-			// Grabs log.csv and chucks it onto a table
-			$.get("{{ url_for('static', filename='log.csv') }}", function(data) {
-				var html = '<table class="table table-bordered">';
-				html += '<tr><td>Person detected at</tr></td>'
-				var rows = data.split("\n");
-				rows.forEach( function getvalues(ourrow) {
-					html += "<tr>";
-					console.log(ourrow);
-					var columns = ourrow.split(",");
-					if (columns[0] != ''){
-						html += "<td>" + columns[0] + "</td>";
-					}
-					html += "</tr>";
-				})
-				html += "</table>";
-				$('#myTable').append(html);
 
-				document.getElementById('bg').src='/video';
-			});
+		<script>
+		// Grabs log.csv and chucks it onto a table
+		$.get("{{ url_for('static', filename='log.csv') }}", function(data) {
+			var html = '<table class="table table-bordered">';
+			html += '<tr><td>Person detected at</tr></td>'
+			var rows = data.split("\n");
+			rows.forEach( function getvalues(ourrow) {
+				html += "<tr>";
+				console.log(ourrow);
+				var columns = ourrow.split(",");
+				if (columns[0] != ''){
+					html += "<td>" + columns[0] + "</td>";
+				}
+				html += "</tr>";
+			})
+			html += "</table>";
+			$('#myTable').append(html);
 
-
+			document.getElementById('bg').src='/video';
+		});
 		</script>
 	</body>
 </html>

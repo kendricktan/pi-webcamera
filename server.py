@@ -27,4 +27,4 @@ def send_pic(filename):
     return send_from_directory('img', filename)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False) # 0.0.0.0 so its open to all ports
+    app.run(threaded=True, host='0.0.0.0', debug=False) # 0.0.0.0 so its open to all ports
